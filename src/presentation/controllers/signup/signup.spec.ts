@@ -1,5 +1,5 @@
 import { SignUpController } from './signup'
-import { MissingParamError } from '../../errors'
+import { MissingParamError, ServerError } from '../../errors'
 import {
   AddAccount,
   AddAccountModel,
@@ -7,7 +7,7 @@ import {
   HttpRequest,
   Validation
 } from './signup-protocols'
-import { badRequest, ok } from '../../helpers/http-helper'
+import { badRequest, ok, serverError } from '../../helpers/http-helper'
 
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
@@ -67,6 +67,19 @@ const makeSut = (): SutTypes => {
 }
 
 describe('SignUp Controller', () => {
+  test('Should return 500 if AddAccount throws', async () => {
+    const { sut, addAccountStub } = makeSut()
+
+    jest.spyOn(addAccountStub, 'add').mockImplementationOnce(() => {
+      throw new Error()
+    })
+
+    const httpRequest = makeFakeRequest()
+
+    const httpResponse = await sut.handle(httpRequest)
+    expect(httpResponse).toEqual(serverError(new ServerError(null)))
+  })
+
   test('Should call AddAccount with correct values', async () => {
     const { sut, addAccountStub } = makeSut()
 
