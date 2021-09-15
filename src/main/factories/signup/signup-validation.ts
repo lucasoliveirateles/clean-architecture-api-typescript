@@ -1,19 +1,19 @@
 import {
   CompareFieldsValidation
-} from '../../presentation/helpers/validators/compare-fields-validation'
+} from '../../../presentation/helpers/validators/compare-fields-validation'
 import {
   EmailValidation
-} from '../../presentation/helpers/validators/email-validation'
+} from '../../../presentation/helpers/validators/email-validation'
 import {
   RequiredFieldValidation
-} from '../../presentation/helpers/validators/required-field-validation'
-import { Validation } from '../../presentation/helpers/validators/validation'
+} from '../../../presentation/helpers/validators/required-field-validation'
+import { Validation } from '../../../presentation/helpers/validators/validation'
 import {
   ValidationComposite
-} from '../../presentation/helpers/validators/validation-composite'
+} from '../../../presentation/helpers/validators/validation-composite'
 import {
   EmailValidatorAdapter
-} from '../../utils/email-validator-adapter'
+} from '../../../utils/email-validator-adapter'
 
 export const makeSingUpValidation = (): ValidationComposite => {
   const validations: Validation[] = []
