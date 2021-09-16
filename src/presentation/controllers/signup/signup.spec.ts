@@ -4,9 +4,9 @@ import {
   AddAccount,
   AddAccountModel,
   AccountModel,
-  HttpRequest,
-  Validation
+  HttpRequest
 } from './signup-protocols'
+import { Validation } from '../../protocols/validation'
 import { badRequest, ok, serverError } from '../../helpers/http/http-helper'
 
 const makeAddAccount = (): AddAccount => {
