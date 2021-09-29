@@ -12,6 +12,7 @@ export class AuthMiddleware implements Middleware {
     if (accessToken) {
       await this.loadAccountByToken.load(accessToken)
     }
+
     return forbidden(new AccessDeniedError())
   }
 }
