@@ -1,6 +1,6 @@
-# Criar enquete
+# Create Poll
 
-> ## Caso de sucesso
+> ## Success case
 
 1. ✅ Recebe uma requisição do tipo **POST** na rota **/api/surveys**
 2. ✅ Valida se a requisição foi feita por um **admin**
@@ -8,7 +8,7 @@
 4. ✅ **Cria** uma enquete com os dados fornecidos
 5. ✅ Retorna **204**, sem dados
 
-> ## Exceções
+> ## Exceptions
 
 1. ✅ Retorna erro **404** se a API não existir
 2. ✅ Retorna erro **403** se o usuário não for admin

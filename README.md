@@ -1,6 +1,6 @@
 # **Clean Node API**
 
-![api](https://github.com/teles1g/clean-ts-api/blob/main/public/img/logo-course.png)
+![clean](https://github.com/teles1g/clean-ts-api/blob/main/public/img/logo-course.png)
 
 This API is part of the training of professor Rodrigo Manguinho (Mango) at Udemy.
 
@@ -161,7 +161,7 @@ The objective of the training is to show how to create an API with a well-define
 * Spies
 * Fakes
 
-> ## MongoDb Features
+> ## MongoDB Features
 
 * Connect and Reconnect
 * Collections

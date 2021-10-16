@@ -1,6 +1,6 @@
-# Responder enquete
+# Answer poll
 
-> ## Caso de sucesso
+> ## Success case
 
 1. ✅ Recebe uma requisição do tipo **PUT** na rota **/api/surveys/{survey_id}/results**
 2. ✅ Valida se a requisição foi feita por um **usuário**
@@ -10,7 +10,7 @@
 6. ✅ **Atualiza** um resultado de enquete com os dados fornecidos caso já tenha um registro
 7. ✅ Retorna **200** com os dados do resultado da enquete
 
-> ## Exceções
+> ## Exceptions
 
 1. ✅ Retorna erro **404** se a API não existir
 2. ✅ Retorna erro **403** se não for um usuário
