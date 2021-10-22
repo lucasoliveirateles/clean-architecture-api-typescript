@@ -1,14 +1,14 @@
-import { Controller } from '../../../../../presentation/protocols'
+import { Controller } from '~/presentation/protocols'
 import {
   LoadSurveysController
-} from '../../../../../presentation/controllers/survey/load-surveys/load-surveys-controller'
+} from '~/presentation/controllers/survey/load-surveys/load-surveys-controller'
 
 import {
   makeLogControllerDecorator
-} from '../../../decorators/log-controller-decorator-factory'
+} from '~/main/factories/decorators/log-controller-decorator-factory'
 import {
   makeDbLoadSurveys
-} from '../../../usecases/survey/load-surveys/db-load-surveys'
+} from '~/main/factories/usecases/survey/load-surveys/db-load-surveys'
 
 export const makeLoadSurveysController = (): Controller => {
   const controller = new LoadSurveysController(makeDbLoadSurveys())

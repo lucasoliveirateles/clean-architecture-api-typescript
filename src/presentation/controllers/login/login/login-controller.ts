@@ -9,8 +9,10 @@ import {
   ok,
   serverError,
   unauthorized
-} from '../../../helpers/http/http-helper'
-import { Validation } from '../signup/signup-controller-protocols'
+} from '~/presentation/helpers/http/http-helper'
+import {
+  Validation
+} from '~/presentation/controllers/login/signup/signup-controller-protocols'
 
 export class LoginController implements Controller {
   constructor (

@@ -1,6 +1,6 @@
-import { adaptMiddleware } from '../adapters/express-middleware-adapter'
+import { adaptMiddleware } from '~/main/adapters/express-middleware-adapter'
 import {
   makeAuthMiddleware
-} from '../factories/middlewares/auth-middleware-factory'
+} from '~/main/factories/middlewares/auth-middleware-factory'
 
 export const auth = adaptMiddleware(makeAuthMiddleware())
