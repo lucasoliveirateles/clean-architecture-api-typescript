@@ -42,7 +42,7 @@ const makeFakeRequest = (): HttpRequest => ({
   }
 })
 
-interface SubTypes {
+type SubTypes = {
   sut: LoginController
   authenticationStub: Authentication
   validationStub: Validation
