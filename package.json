@@ -1,7 +1,7 @@
 {
   "name": "clean-ts-api",
   "version": "2.0.2",
-  "description": "",
+  "description": "Clean Node API",
   "main": "index.js",
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig-build.json",
@@ -18,7 +18,11 @@
     "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info"
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "Lucas Teles",
+    "url": "https://github.com/teles1g/clean-ts-api",
+    "email": "dev.teles@outlook.com"
+  },
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
