@@ -1,8 +1,10 @@
 import {
   SaveSurveyResultRepository
-} from '~/data/usecases/save-survey-result/db-save-survey-result-protocols'
+} from '~/data/usecases/survey-result/save-survey-result/db-save-survey-result-protocols'
 import { SurveyResultModel } from '~/domain/models/survey-result'
-import { SaveSurveyResultModel } from '~/domain/usecases/save-survey-result'
+import {
+  SaveSurveyResultModel
+} from '~/domain/usecases/survey-result/save-survey-result'
 import { MongoHelper } from '~/infra/db/mongodb/helpers/mongo-helper'
 
 export class SurveyResultMongoRepository implements SaveSurveyResultRepository {

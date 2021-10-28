@@ -1,4 +1,9 @@
-import { Controller, HttpRequest, HttpResponse, LoadSurveys } from './load-surveys-protocols'
+import {
+  Controller,
+  HttpRequest,
+  HttpResponse,
+  LoadSurveys
+} from './load-surveys-protocols'
 import {
   noContent,
   ok,
