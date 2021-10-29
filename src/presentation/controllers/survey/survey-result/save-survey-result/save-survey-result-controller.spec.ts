@@ -7,7 +7,11 @@ import {
   SaveSurveyResultModel,
   SurveyResultModel
 } from './save-survey-result-controller-protocols'
-import { forbidden, serverError, ok } from '~/presentation/helpers/http/http-helper'
+import {
+  forbidden,
+  serverError,
+  ok
+} from '~/presentation/helpers/http/http-helper'
 import { InvalidParamError } from '~/presentation/errors'
 import MockDate from 'mockdate'
 
