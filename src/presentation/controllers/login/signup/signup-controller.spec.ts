@@ -6,10 +6,11 @@ import {
 } from '~/presentation/errors'
 import {
   AddAccount,
-  AddAccountModel,
+  AddAccountModelParams,
   AccountModel,
   HttpRequest,
-  Authentication, AuthenticationModel
+  Authentication,
+  AuthenticationModelParams
 } from './signup-controller-protocols'
 import { Validation } from '~/presentation/protocols/validation'
 import {
@@ -17,11 +18,11 @@ import {
   forbidden,
   ok,
   serverError
-} from '../../../helpers/http/http-helper'
+} from '~/presentation/helpers/http/http-helper'
 
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
-    async add (account: AddAccountModel): Promise<AccountModel> {
+    async add (account: AddAccountModelParams): Promise<AccountModel> {
       const fakeAccount = makeFakeAccount()
 
       return await new Promise(resolve => resolve(fakeAccount))
@@ -33,7 +34,7 @@ const makeAddAccount = (): AddAccount => {
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth (authentication: AuthenticationModel): Promise<string> {
+    async auth (authentication: AuthenticationModelParams): Promise<string> {
       return await new Promise(resolve => resolve('any_token'))
     }
   }
@@ -157,7 +158,9 @@ describe('SignUp Controller', () => {
   test('Should return 400 if Validation returns an error', async () => {
     const { sut, validationStub } = makeSut()
 
-    jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new MissingParamError('any_value'))
+    jest.spyOn(validationStub, 'validate').mockReturnValueOnce(
+      new MissingParamError('any_value')
+    )
 
     const httpRequest = makeFakeRequest()
     const httpResponse = await sut.handle(httpRequest)

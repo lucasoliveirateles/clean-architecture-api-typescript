@@ -8,7 +8,7 @@ import {
 import {
   HttpRequest,
   Authentication,
-  AuthenticationModel
+  AuthenticationModelParams
 } from './login-controller-protocols'
 import { LoginController } from './login-controller'
 import {
@@ -17,7 +17,7 @@ import {
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth (authentication: AuthenticationModel): Promise<string> {
+    async auth (authentication: AuthenticationModelParams): Promise<string> {
       return await new Promise(resolve => resolve('any_token'))
     }
   }
