@@ -19,6 +19,7 @@ import {
   ok,
   serverError
 } from '~/presentation/helpers/http/http-helper'
+import { throwError } from '~/domain/test'
 
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
@@ -103,8 +104,8 @@ describe('SignUp Controller', () => {
     })
 
     const httpRequest = makeFakeRequest()
-
     const httpResponse = await sut.handle(httpRequest)
+
     expect(httpResponse).toEqual(serverError(new ServerError(null)))
   })
 
@@ -138,6 +139,7 @@ describe('SignUp Controller', () => {
 
   test('Should return 200 if valid data is provided', async () => {
     const { sut } = makeSut()
+
     const httpRequest = makeFakeRequest()
     const httpResponse = await sut.handle(httpRequest)
 
@@ -152,6 +154,7 @@ describe('SignUp Controller', () => {
     const httpRequest = makeFakeRequest()
 
     await sut.handle(httpRequest)
+
     expect(validateSpy).toHaveBeenCalledWith(httpRequest.body)
   })
 
@@ -163,6 +166,7 @@ describe('SignUp Controller', () => {
     )
 
     const httpRequest = makeFakeRequest()
+
     const httpResponse = await sut.handle(httpRequest)
 
     expect(httpResponse).toEqual(badRequest(new MissingParamError('any_value')))
@@ -172,6 +176,7 @@ describe('SignUp Controller', () => {
     const { sut, authenticationStub } = makeSut()
 
     const authSpy = jest.spyOn(authenticationStub, 'auth')
+
     const httpRequest = makeFakeRequest()
 
     await sut.handle(httpRequest)
@@ -185,9 +190,7 @@ describe('SignUp Controller', () => {
   test('Should return 500 if Authentication throws', async () => {
     const { sut, authenticationStub } = makeSut()
 
-    jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(
-      new Promise((resolve, reject) => reject(new Error()))
-    )
+    jest.spyOn(authenticationStub, 'auth').mockImplementationOnce(throwError)
 
     const httpRequest = makeFakeRequest()
     const httpResponse = await sut.handle(httpRequest)

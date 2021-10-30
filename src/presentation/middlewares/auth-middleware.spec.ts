@@ -10,6 +10,7 @@ import {
   AccountModel,
   HttpRequest
 } from './auth-middleware-protocols'
+import { throwError } from '~/domain/test'
 
 const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
@@ -60,9 +61,11 @@ describe('Auth Middleware', () => {
 
   test('Should call LoadAccountByToken with correct accessToken', async () => {
     const role = 'any_role'
+
     const { sut, loadAccountByTokenStub } = makeSut(role)
 
     const loadSpy = jest.spyOn(loadAccountByTokenStub, 'load')
+
     await sut.handle(makeFakeRequest())
 
     expect(loadSpy).toHaveBeenCalledWith('any_token', role)
@@ -92,9 +95,7 @@ describe('Auth Middleware', () => {
   test('Should return 500 if LoadAccountByToken throws', async () => {
     const { sut, loadAccountByTokenStub } = makeSut()
 
-    jest.spyOn(loadAccountByTokenStub, 'load').mockReturnValueOnce(
-      new Promise((resolve, reject) => reject(new Error()))
-    )
+    jest.spyOn(loadAccountByTokenStub, 'load').mockImplementationOnce(throwError)
 
     const HttpRequest = makeFakeRequest()
     const httpResponse = await sut.handle(HttpRequest)

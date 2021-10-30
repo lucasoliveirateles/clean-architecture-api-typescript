@@ -4,6 +4,7 @@ import {
   LoadAccountByTokenRepository
 } from './db-load-account-by-token-protocols'
 import { DbLoadAccountByToken } from './db-load-account-by-token'
+import { throwError } from '~/domain/test'
 
 const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
@@ -55,6 +56,7 @@ describe('DbLoadAccountByToken Usecase', () => {
     const { sut, decrypterStub } = makeSut()
 
     const decrypterSpy = jest.spyOn(decrypterStub, 'decrypt')
+
     await sut.load('any_token', 'any_role')
 
     expect(decrypterSpy).toHaveBeenCalledWith('any_token')
@@ -66,6 +68,7 @@ describe('DbLoadAccountByToken Usecase', () => {
     jest.spyOn(decrypterStub, 'decrypt').mockReturnValueOnce(
       new Promise(resolve => resolve(null))
     )
+
     const account = await sut.load('any_token', 'any_role')
 
     expect(account).toBeNull()
@@ -75,6 +78,7 @@ describe('DbLoadAccountByToken Usecase', () => {
     const { sut, loadAccountByTokenRepositorySpy } = makeSut()
 
     const loadByTokenSpy = jest.spyOn(loadAccountByTokenRepositorySpy, 'loadByToken')
+
     await sut.load('any_token', 'any_role')
 
     expect(loadByTokenSpy).toHaveBeenCalledWith('any_token', 'any_role')
@@ -103,9 +107,7 @@ describe('DbLoadAccountByToken Usecase', () => {
   test('Should throw if Descrypter throws', async () => {
     const { sut, decrypterStub } = makeSut()
 
-    jest.spyOn(decrypterStub, 'decrypt').mockReturnValueOnce(
-      new Promise((resolve, reject) => reject(new Error()))
-    )
+    jest.spyOn(decrypterStub, 'decrypt').mockImplementationOnce(throwError)
 
     const promise = sut.load('any_token', 'any_role')
 
@@ -115,9 +117,8 @@ describe('DbLoadAccountByToken Usecase', () => {
   test('Should throw if LoadAccountByTokenRepository throws', async () => {
     const { sut, loadAccountByTokenRepositorySpy } = makeSut()
 
-    jest.spyOn(loadAccountByTokenRepositorySpy, 'loadByToken').mockReturnValueOnce(
-      new Promise((resolve, reject) => reject(new Error()))
-    )
+    jest.spyOn(loadAccountByTokenRepositorySpy, 'loadByToken')
+      .mockImplementationOnce(throwError)
 
     const promise = sut.load('any_token', 'any_role')
 
