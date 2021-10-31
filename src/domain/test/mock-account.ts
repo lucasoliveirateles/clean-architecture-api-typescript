@@ -5,7 +5,7 @@ import {
   AddAccountModelParams
 } from '~/data/usecases/account/add-account/db-add-account-protocols'
 
-export const mockFakeAccountModel = (): AccountModel => ({
+export const mockAccountModel = (): AccountModel => ({
   id: 'any_id',
   name: 'any_name',
   email: 'any_email@mail.com',

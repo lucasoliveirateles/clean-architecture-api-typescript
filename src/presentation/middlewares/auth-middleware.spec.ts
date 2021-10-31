@@ -10,14 +10,7 @@ import {
   AccountModel,
   HttpRequest
 } from './auth-middleware-protocols'
-import { throwError } from '~/domain/test'
-
-const makeFakeAccount = (): AccountModel => ({
-  id: 'valid_id',
-  name: 'valid_name',
-  email: 'valid_email@mail.com',
-  password: 'hashed_password'
-})
+import { throwError, mockAccountModel } from '~/domain/test'
 
 const makeFakeRequest = (): HttpRequest => ({
   headers: {
@@ -28,7 +21,7 @@ const makeFakeRequest = (): HttpRequest => ({
 const makeLoadAccountByToken = (): LoadAccountByToken => {
   class LoadAccountByTokenStub implements LoadAccountByToken {
     async load (accessToken: string, role?: string): Promise<AccountModel> {
-      return await new Promise(resolve => resolve(makeFakeAccount()))
+      return await new Promise(resolve => resolve(mockAccountModel()))
     }
   }
 
@@ -89,7 +82,7 @@ describe('Auth Middleware', () => {
     const HttpRequest = makeFakeRequest()
     const httpResponse = await sut.handle(HttpRequest)
 
-    expect(httpResponse).toEqual(ok({ accountId: 'valid_id' }))
+    expect(httpResponse).toEqual(ok({ accountId: 'any_id' }))
   })
 
   test('Should return 500 if LoadAccountByToken throws', async () => {

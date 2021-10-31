@@ -7,20 +7,11 @@ import {
 } from './db-add-account-protocols'
 import { DbAddAccount } from './db-add-account'
 import {
-  mockFakeAccountModel,
-  mockAddAccountParams,
-  throwError
+  throwError,
+  mockAccountModel,
+  mockAddAccountParams
 } from '~/domain/test'
-
-const makeHasher = (): Hasher => {
-  class HasherStub implements Hasher {
-    async hash (value: string): Promise<string> {
-      return await new Promise(resolve => resolve('hashed_password'))
-    }
-  }
-
-  return new HasherStub()
-}
+import { mockHasher } from '~/data/protocols/test'
 
 const makeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
@@ -35,7 +26,7 @@ const makeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
 const makeAddAccountRepository = (): AddAccountRepository => {
   class AddAccountRepositoryStub implements AddAccountRepository {
     async add (accountData: AddAccountModelParams): Promise<AccountModel> {
-      const fakeAccount = mockFakeAccountModel()
+      const fakeAccount = mockAccountModel()
 
       return await new Promise(resolve => resolve(fakeAccount))
     }
@@ -52,7 +43,7 @@ type SutTypes = {
 }
 
 const makeSut = (): SutTypes => {
-  const hasherStub = makeHasher()
+  const hasherStub = mockHasher()
   const addAccountRepositoryStub = makeAddAccountRepository()
   const loadAccountByEmailRepositoryStub = makeLoadAccountByEmailRepository()
 
@@ -134,14 +125,14 @@ describe('DbAddAccount Usecase', () => {
 
     const account = await sut.add(accountData)
 
-    expect(account).toEqual(mockFakeAccountModel())
+    expect(account).toEqual(mockAccountModel())
   })
 
   test('Should return null if LoadAccountByEmailRepository not return null', async () => {
     const { sut, loadAccountByEmailRepositoryStub } = makeSut()
 
     jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail').mockReturnValueOnce(
-      new Promise(resolve => resolve(mockFakeAccountModel()))
+      new Promise(resolve => resolve(mockAccountModel()))
     )
 
     const accountData = mockAddAccountParams()
