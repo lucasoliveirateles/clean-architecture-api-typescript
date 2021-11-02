@@ -7,6 +7,7 @@ import { LogControllerDecorator } from './log-controller-decorator'
 import { ok, serverError } from '~/presentation/helpers/http/http-helper'
 import { LogErrorRepository } from '~/data/protocols/db/log/log-error-repository'
 import { mockAccountModel } from '~/domain/test'
+import { mockLogErrorRepository } from '~/data/protocols/test'
 
 type SutTypes = {
   sut: LogControllerDecorator
@@ -40,19 +41,9 @@ const makeController = (): Controller => {
   return new ControllerStub()
 }
 
-const makeLogErrorRepository = (): LogErrorRepository => {
-  class LogErrorRepositoryStub implements LogErrorRepository {
-    async logError (stack: string): Promise<void> {
-      return await new Promise(resolve => resolve())
-    }
-  }
-
-  return new LogErrorRepositoryStub()
-}
-
 const makeSut = (): SutTypes => {
   const controllerStub = makeController()
-  const logErrorRepositoryStub = makeLogErrorRepository()
+  const logErrorRepositoryStub = mockLogErrorRepository()
   const sut = new LogControllerDecorator(controllerStub, logErrorRepositoryStub)
 
   return {
