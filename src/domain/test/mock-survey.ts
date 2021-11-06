@@ -1,4 +1,7 @@
 import { SurveyModel } from '~/domain/models/survey'
+import {
+  AddSurveyModelParams
+} from '~/data/usecases/survey/add-survey/add-survey-protocols'
 
 export const mockSurveyModel = (): SurveyModel => {
   return {
@@ -31,3 +34,12 @@ export const mockSurveysModels = (): SurveyModel[] => {
     date: new Date()
   }]
 }
+
+export const mockAddSurveyParams = (): AddSurveyModelParams => ({
+  question: 'any_question',
+  answers: [{
+    image: 'any_image',
+    answer: 'any_answer'
+  }],
+  date: new Date()
+})
