@@ -36,7 +36,7 @@ const makeValidation = (): Validation => {
   return new ValidationStub()
 }
 
-const makeFakeRequest = (): HttpRequest => ({
+const mockRequest = (): HttpRequest => ({
   body: {
     email: 'any_email@mail.com',
     password: 'any_password'
@@ -68,7 +68,7 @@ describe('LoginController', () => {
 
     const authSpy = jest.spyOn(authenticationStub, 'auth')
 
-    const httpRequest = makeFakeRequest()
+    const httpRequest = mockRequest()
 
     await sut.handle(httpRequest)
 
@@ -85,7 +85,7 @@ describe('LoginController', () => {
       new Promise(resolve => resolve(null))
     )
 
-    const httpRequest = makeFakeRequest()
+    const httpRequest = mockRequest()
     const httpResponse = await sut.handle(httpRequest)
 
     expect(httpResponse).toEqual(unauthorized())
@@ -96,7 +96,7 @@ describe('LoginController', () => {
 
     jest.spyOn(authenticationStub, 'auth').mockImplementationOnce(throwError)
 
-    const httpRequest = makeFakeRequest()
+    const httpRequest = mockRequest()
     const httpResponse = await sut.handle(httpRequest)
 
     expect(httpResponse).toEqual(serverError(new Error()))
@@ -105,7 +105,7 @@ describe('LoginController', () => {
   test('Should return 200 if valid credentials are provided', async () => {
     const { sut } = makeSut()
 
-    const httpRequest = makeFakeRequest()
+    const httpRequest = mockRequest()
     const httpResponse = await sut.handle(httpRequest)
 
     expect(httpResponse).toEqual(ok({ accessToken: 'any_token' }))
@@ -116,7 +116,7 @@ describe('LoginController', () => {
 
     const validateSpy = jest.spyOn(validationStub, 'validate')
 
-    const httpRequest = makeFakeRequest()
+    const httpRequest = mockRequest()
 
     await sut.handle(httpRequest)
 
@@ -130,7 +130,7 @@ describe('LoginController', () => {
       new MissingParamError('any_value')
     )
 
-    const httpRequest = makeFakeRequest()
+    const httpRequest = mockRequest()
     const httpResponse = await sut.handle(httpRequest)
 
     expect(httpResponse).toEqual(badRequest(new MissingParamError('any_value')))
