@@ -11,7 +11,7 @@ import {
   mockEncrypter,
   mockLoadAccountByEmailRepository,
   makeUpdateAccessTokenRepository
-} from '~/data/protocols/test'
+} from '~/data/test'
 
 type SutTypes = {
   sut: DbAuthentication

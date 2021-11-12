@@ -1,6 +1,6 @@
 import { DbSaveSurveyResult } from './db-save-survey-result'
 import { SaveSurveyResultRepository } from './db-save-survey-result-protocols'
-import { mockSaveSurveyResultRepository } from '~/data/protocols/test'
+import { mockSaveSurveyResultRepository } from '~/data/test'
 import {
   throwError,
   mockSurveyResultModel,

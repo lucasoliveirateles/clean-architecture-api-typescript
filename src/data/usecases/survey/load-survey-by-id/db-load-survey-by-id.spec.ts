@@ -3,7 +3,7 @@ import {
 } from './db-load-survey-by-id-protocols'
 import { DbLoadSurveyById } from './db-load-survey-by-id'
 import { throwError, mockSurveyModel } from '~/domain/test'
-import { mockLoadSurveyByIdRepository } from '~/data/protocols/test'
+import { mockLoadSurveyByIdRepository } from '~/data/test'
 import MockDate from 'mockdate'
 
 type SutTypes = {
