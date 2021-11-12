@@ -39,7 +39,7 @@ describe('DbLoadAccountByToken Usecase', () => {
     const { sut, decrypterStub } = makeSut()
 
     jest.spyOn(decrypterStub, 'decrypt').mockReturnValueOnce(
-      new Promise(resolve => resolve(null))
+      Promise.resolve(null)
     )
 
     const account = await sut.load('any_token', 'any_role')
@@ -61,7 +61,7 @@ describe('DbLoadAccountByToken Usecase', () => {
     const { sut, loadAccountByTokenRepositorySpy } = makeSut()
 
     jest.spyOn(loadAccountByTokenRepositorySpy, 'loadByToken').mockReturnValueOnce(
-      new Promise(resolve => resolve(null))
+      Promise.resolve(null)
     )
 
     const account = await sut.load('any_token', 'any_role')

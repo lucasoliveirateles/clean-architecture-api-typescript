@@ -9,7 +9,7 @@ import MockDate from 'mockdate'
 const makeLoadSurveysRepository = (): LoadSurveyRepository => {
   class LoadSurveysRepositoryStub implements LoadSurveyRepository {
     async loadAll (): Promise<SurveyModel[]> {
-      return await new Promise(resolve => resolve(mockSurveysModels()))
+      return await Promise.resolve(mockSurveysModels())
     }
   }
 

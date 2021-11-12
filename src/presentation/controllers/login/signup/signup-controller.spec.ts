@@ -91,7 +91,7 @@ describe('SignUp Controller', () => {
     const { sut, addAccountStub } = makeSut()
 
     jest.spyOn(addAccountStub, 'add').mockReturnValueOnce(
-      new Promise(resolve => resolve(null))
+      Promise.resolve(null)
     )
 
     const httpRequest = makeFakeRequest()
