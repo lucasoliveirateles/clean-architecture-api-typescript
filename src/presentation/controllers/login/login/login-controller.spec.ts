@@ -7,34 +7,14 @@ import {
 } from '~/presentation/helpers/http/http-helper'
 import {
   HttpRequest,
-  Authentication,
-  AuthenticationModelParams
+  Authentication
 } from './login-controller-protocols'
 import { LoginController } from './login-controller'
 import {
   Validation
 } from '~/presentation/controllers/login/signup/signup-controller-protocols'
 import { throwError } from '~/domain/test'
-
-const makeAuthentication = (): Authentication => {
-  class AuthenticationStub implements Authentication {
-    async auth (authentication: AuthenticationModelParams): Promise<string> {
-      return await new Promise(resolve => resolve('any_token'))
-    }
-  }
-
-  return new AuthenticationStub()
-}
-
-const makeValidation = (): Validation => {
-  class ValidationStub implements Validation {
-    validate (input: any): Error {
-      return null
-    }
-  }
-
-  return new ValidationStub()
-}
+import { mockAuthentication, mockValidation } from '~/presentation/test'
 
 const mockRequest = (): HttpRequest => ({
   body: {
@@ -50,8 +30,8 @@ type SubTypes = {
 }
 
 const makeSut = (): SubTypes => {
-  const authenticationStub = makeAuthentication()
-  const validationStub = makeValidation()
+  const authenticationStub = mockAuthentication()
+  const validationStub = mockValidation()
 
   const sut = new LoginController(authenticationStub, validationStub)
 
