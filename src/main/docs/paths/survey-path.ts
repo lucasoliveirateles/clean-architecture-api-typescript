@@ -3,7 +3,7 @@ export const surveyPath = {
     security: [{
       apiKeyAuth: []
     }],
-    tags: ['survey'],
+    tags: ['Survey'],
     summary: 'API to list surveys',
     responses: {
       200: {
@@ -15,6 +15,36 @@ export const surveyPath = {
             }
           }
         }
+      },
+      403: {
+        $ref: '#/components/forbidden'
+      },
+      404: {
+        $ref: '#/components/notFound'
+      },
+      500: {
+        $ref: '#/components/serverError'
+      }
+    }
+  },
+  post: {
+    security: [{
+      apiKeyAuth: []
+    }],
+    tags: ['Survey'],
+    summary: 'API to create survey',
+    requestBody: {
+      content: {
+        'application/json': {
+          schema: {
+            $ref: '#/schemas/addSurveyParams'
+          }
+        }
+      }
+    },
+    responses: {
+      204: {
+        description: 'Successful response'
       },
       403: {
         $ref: '#/components/forbidden'
