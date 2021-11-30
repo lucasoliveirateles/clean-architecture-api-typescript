@@ -7,5 +7,7 @@ export const surveyAnswerSchema = {
     answer: {
       type: 'string'
     }
-  }
+  },
+
+  required: ['answer']
 }
